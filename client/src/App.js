@@ -10,11 +10,10 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-      <h1>Henry Food</h1>
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/principal' component={RutaPrincipal} />
-        <Route path='/details' component={Details} />
+        <Route path='/details/:id' component={Details} />
         <Route path='/form' component={Form} />
         <Route path='*' component={Error404} />
         </Switch>

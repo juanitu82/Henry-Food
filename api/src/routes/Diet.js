@@ -1,11 +1,16 @@
 const {Router} = require('express');
-const { getDiets, createDiet, updateDiet, deleteDiet } = require('../controllers/Diets');
+const { getDiets, createDiet, updateDiet, deleteDiet, getDietById } = require('../controllers/Diets');
+
 const router = Router()
 
 router.get('/', getDiets)
 
-router.post('/', createDiet)
+router.get('/:id', getDietById)
 
-router.put('/', updateDiet)
+router.post('/create', createDiet)
 
-router.delete('/', deleteDiet)
+router.put('/update/:id', updateDiet)
+
+router.delete('/delete/:id', deleteDiet)
+
+module.exports = router

@@ -18,19 +18,18 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const { conn, Diet } = require('./src/db.js');
 const {port, APIKEY} = (process.env || 3001);
-const {api, diets} = require('./src/controllers/api')
-
-
+const tiposDietas = require('./src/controllers/tiposDeDietas');
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then( () => {
   console.log('DB sync')
-  server.listen( 3001, () => {
+  server.listen( 3001, async () => {
     console.log(`Server listening at port 3001`); // eslint-disable-line no-console
-    api()
-    diets()
+    const dietQuery = await Diet.findAll();
+    if(dietQuery.length) console.log('No Actualiza Diets')
+    else if(!dietQuery.length) await Diet.bulkCreate(tiposDietas)
   });
 });
 

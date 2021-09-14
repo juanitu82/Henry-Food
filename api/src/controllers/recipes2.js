@@ -1,47 +1,28 @@
 const {Recipe, Diet} = require('../db')
 const {Op} = require('sequelize');
-const axios = require('axios');
 const apiRecipes = require('./api');
 const orderArray = require('./Order')
-const {APIKEY} = process.env;
+
+
 
 const getRecepies = async (req, res, next) => {
     try {
         let recepies = await apiRecipes()
-        let { name, diet, order, orderType} = req.query
-        console.log(recepies.length)
-        console.log(`aca entra en el back!  ahora empieza el filtrado`)
-        console.log(diet)
-        console.log(req.query)
-        //******************************* */
-        if(name && diet){
-            // console.log('entras aca')
-            name = name.trim().toLowerCase()
-            const query = recepies.filter(e => {
-                if((e.nombre.toLowerCase().includes(name)) && (e.dieta.includes(diet))) return e
-            })
-            orderArray(query, orderType, order)
-            query.length ? res.json(query ) : res.status(404).json('No encontre ninguna receta')
-        }
-        else if(name){
-            console.log('entra aca ahora????')
+        let { name } = req.query
+        console.log(recepies.length, name)
+       
+        if(name){
+            console.log('entra aca')
             name = name.trim().toLowerCase()
             const recepiesByName = await recepies.filter( e => e.nombre.toLowerCase().includes(name))
-            orderArray(recepiesByName, orderType, order)
+            // orderArray(recepiesByName)
+            console.log(recepiesByName.length)
             recepiesByName ? res.json(recepiesByName) : res.status(404).json('No se encontraron resultados')
-        }else if(diet){
-            // console.log('Esta entrando aca en el back')
-            console.log('entra en el if que quiero, el diet que recibe es:',diet)
-            let dietQuery = recepies.filter(e => e.dietas.includes( diet) )
-            console.log('luego de filtrado, ANTES del ordenado',dietQuery.length)
-            // console.log(orderArray(dietQuery, orderType, order))
-            // dietQuery = orderArray(dietQuery, orderType, order)
-            // console.log(dietQuery.map(e => ({numero: e.numero, nombre: e.nombre})))
-            console.log(dietQuery.length)
-            dietQuery.length ? res.json( dietQuery ) : res.status(404).json('No encontre ninguna receta')
         }else{
-            orderArray(recepies, orderType, order)
-            // recepies.map(e => ({numero: e.numero, id: e.id, [orderType]: e[orderType]}))
+            let sortDiet = recepies.map( el => el.dietas.includes('vegan')  )
+            
+            console.log(recepies.length)
+            console.log(sortDiet)
             res.json(recepies)
         }
     } catch (error) {
