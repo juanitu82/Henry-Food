@@ -1,13 +1,14 @@
 
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRecepieById } from '../actions';
+import { getRecepieById } from '../../actions';
 import { Link } from 'react-router-dom';
-import {ContainerDetails, CajitaGrid, Frag, FragDetails, ListasReceta} from '../components/styledComponents';
 import './Details.css'
 
 export default function Details({match}){
+
     const dispatch = useDispatch()
+
     const id = match.params.id
        
     useEffect( ()=>{
@@ -16,24 +17,23 @@ export default function Details({match}){
 
     const recId = useSelector(state => state.details)
 
-    console.log(recId)
     return(
         <div>
         {
             recId ?
             (
-            <Fragment>
+            <Fragment className='container'>
                 <h2>{recId.nombre}</h2>
-                <div className='foto'>
-                    <img src={recId.imagen} alt={recId.id}/>
-                </div>
+                
+                <div className='foto container'> <img src={recId.imagen} alt={recId.id}/> </div>
 
-                <div className='resumen'>
+                <div className='resumen container'>
                     <h3> Resumen del plato </h3>
                     <p> {recId.resumen} </p>
                 </div>
+                
 
-                <div className='resumen2 '>
+                <div className='resumen2 container'>
                     <ul className='resumen'>
                         {
                             recId.tipo && recId.tipo.length ?
@@ -47,6 +47,17 @@ export default function Details({match}){
                             <Fragment></Fragment> 
                         }
                     </ul>
+
+                    <div className='otraCaja'>
+                        <div className='puntos'>
+                            <h3> Puntuacion: </h3>
+                            <p> {recId.puntuacion} </p>
+                        </div>
+                        <div className='salud'>   
+                            <h3> Salud: </h3>
+                            <p> {recId.salud} </p>
+                        </div>
+                    </div>
                         
                     <ul className='resumen'>
                         {
@@ -61,25 +72,20 @@ export default function Details({match}){
                             <Fragment></Fragment> 
                         }
                     </ul>
-                    <div className='otraCaja'>
-                        <h3> Puntuacion: </h3>
-                        <p> {recId.puntuacion} </p>
-                    </div>
-                    <div className='otraCaja'>
-                        <h3> Salud: </h3>
-                        <p> {recId.salud} </p>
-                    </div>
                 </div>
-                <ul>Paso a paso
-                    { 
-                        recId.pasos && recId.pasos.map(e => <li key={e}> {e}</li>)   
-                    }
-                </ul>
-                
-               
-                
-            
-                <Link to='/principal'> Volver </Link>
+                <div className='pasoAPaso container'>
+                    <ul>
+                        { 
+                            recId.pasos ?
+                         <Fragment>
+                            <h3> Paso a paso</h3>
+                            {recId.pasos && recId.pasos.map(e => <li key={e}> {e}</li>) }  
+                        </Fragment>
+                        :<Fragment></Fragment>
+                        }
+                    </ul>
+                </div>
+                <div className='caja-boton container'><Link to='/principal' className='boton'> Volver </Link></div>
             </Fragment>
             ) :
             <p> Loading ...</p>

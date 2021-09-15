@@ -32,8 +32,6 @@ const Reducer = (state = initialState, action) => {
             const sort = (action.payload === 'puntuacion' && action.order === 'ASC') ? 
             recepies.sort((a, b) => a.puntuacion - b.puntuacion) :
             recepies.sort((a, b) => b.puntuacion - a.puntuacion);
-            
-            console.log(recepies)
             return {
                 ...state,
                 recepies: sort
@@ -43,8 +41,6 @@ const Reducer = (state = initialState, action) => {
             const sortAbc = (action.payload === 'ABC' && action.order === 'ASC') ? 
             recepiesAbc.sort((a, b) => a.nombre.localeCompare(b.nombre)) :
             recepiesAbc.sort((a, b) => b.nombre.localeCompare(a.nombre));
-            
-            console.log(sortAbc)
             return {
                 ...state,
                 recepies: sortAbc
@@ -52,8 +48,6 @@ const Reducer = (state = initialState, action) => {
         case 'FILTER_RECEPIES_BY_DIET':
             let recepiesDiet = state.allRecepies;
             let sortDiet = recepiesDiet.filter( el => (el.dietas.includes(action.payload)) === true ) 
-            
-            console.log('este es el resultado', sortDiet)
             return {
                 ...state,
                 recepies: sortDiet

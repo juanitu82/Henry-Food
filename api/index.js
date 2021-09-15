@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn, Diet } = require('./src/db.js');
-const {port, APIKEY} = (process.env || 3001);
+
 const tiposDietas = require('./src/controllers/tiposDeDietas');
 
 // Syncing all the models at once.

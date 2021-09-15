@@ -1,0 +1,35 @@
+.landing {
+    /* background: url('../../cook.jpg') */
+    background-image: url('../../img/landing.jpg');
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.titulo {
+    margin: 0;
+    text-align: right;
+    margin-right: 6em;
+    padding-top: 3em;
+    color: white;
+}
+
+.boton-landing {
+    margin-top: 13em;
+}
+
+a.boton-landing {
+    margin-left: 50em;
+}
+
+a.boton-landing button {
+    background: none;
+    padding: 2em;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+a.boton-landing button:hover {
+text-decoration: underline;}

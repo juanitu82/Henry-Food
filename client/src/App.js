@@ -1,8 +1,10 @@
 import './App.css';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import LandingPage from './views/LandingPage';
-import RutaPrincipal from './views/RutaPrincipal';
-import Details from './views/Details';
+
+import LandingPage from './views/LandingPage/LandingPage';
+import RutaPrincipal from './views/RutaPrincipal/RutaPrincipal';
+import Details from './views/Details/Details';
 import Form from './views/Form';
 import Error404 from './views/Error404';
 

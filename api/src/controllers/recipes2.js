@@ -1,35 +1,20 @@
 const {Recipe, Diet} = require('../db')
 const {Op} = require('sequelize');
 const apiRecipes = require('./api');
-const orderArray = require('./Order')
-
-
 
 const getRecepies = async (req, res, next) => {
     try {
         let recepies = await apiRecipes()
         let { name } = req.query
-        console.log(recepies.length, name)
-       
         if(name){
-            console.log('entra aca')
             name = name.trim().toLowerCase()
             const recepiesByName = await recepies.filter( e => e.nombre.toLowerCase().includes(name))
-            // orderArray(recepiesByName)
-            console.log(recepiesByName.length)
             recepiesByName ? res.json(recepiesByName) : res.status(404).json('No se encontraron resultados')
-        }else{
-            let sortDiet = recepies.map( el => el.dietas.includes('vegan')  )
-            
-            console.log(recepies.length)
-            console.log(sortDiet)
-            res.json(recepies)
-        }
+        }else res.json(recepies)
     } catch (error) {
         next(error)
     } 
 };
-
 
 const getRecepiesById = async (req, res, next) => {
     try {
@@ -59,19 +44,9 @@ const CreateRecepie = async (req, res, next) => {
                  nombre, resumen, puntuacion, salud, pasos, dietas, tipo, imagen, createdInDB
             }
         })
-        const dietQuery = await Diet.findAll({
-            where: {
-                nombre: {
-                    [Op.in]: dietas
-                }
-            }
-        });
-        if(created){
-            await recipe.addDiets(dietQuery);
-            res.json(recipe)
-        }else{
-            res.json('La receta ya existia en la base de datos')
-        }
+       
+        if(created) res.json(recipe)
+        else res.json('La receta ya existia en la base de datos')
     } catch (error) {
         next(error)
     }

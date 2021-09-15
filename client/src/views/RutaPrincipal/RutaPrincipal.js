@@ -1,13 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom';
-import Card from "../components/Card"
-import Pagination from './../components/Pagination';
-import { getDiets, getRecepies, getOrderScore, getOrderAbc, filterByName, filterByDiet } from "../actions/index";
-import { Foot, Formulario, Container, Menu } from '../components/styledComponents';
 
+import Card from "../../components/Card"
+import Pagination from '../../components/Pagination';
+import { getDiets, getRecepies, getOrderScore, getOrderAbc, filterByName, filterByDiet } from "../../actions/index";
 
-
+import { Foot, Formulario, Container, Menu } from '../../components/styledComponents';
 
 export default function RutaPrincipal(){
 
@@ -16,7 +15,6 @@ export default function RutaPrincipal(){
     const { recepies, diets} = useSelector(state => state) // te traes el store de recetas y dietas
     //se crean estados locales
     //para ordenamiento y filtrado
-    const [diet, setDiet] = useState('') //guarda el option elegido de tipos de dietas
     const [name, setName] = useState('') //guarda el string que se escribe en el input de busqueda
     const [order, setOrder] = useState('ASC') //guarda el string que se escribe en el input de busqueda
     const [orderType, setOrderType] = useState('') //guarda el string que se escribe en el input de busqueda
@@ -25,8 +23,6 @@ export default function RutaPrincipal(){
     const [recepiesPerPage] = useState(9); // estado local de cantidad de cards por pagina
 
     // Se carga el componente con las dietas y las recetas
-    // const [recepies, setRecepies] = useState(allRecepies); //estado local de recetas
-
     useEffect( () => {
         dispatch(getDiets())
         dispatch(getRecepies())
@@ -46,19 +42,15 @@ export default function RutaPrincipal(){
     // funcion que limpia filtros
 
     const handleRecharge = (e) => {
-        // e.preventDefault()
         dispatch(getRecepies()) 
         setCurrentPage(1)
-        setDiet('')
         setName('')
         setOrder('ASC')
         setOrderType('id')
     }
-
     //funcion que ordena ascendente o descendentemente
 
-    const handleOrder = (e, orderType, order) => {
-
+    const handleOrder = (e, orderType) => {
         if( orderType === 'puntuacion'){
             dispatch(getOrderScore(orderType, e.target.value ))
             setCurrentPage(1)
@@ -71,9 +63,7 @@ export default function RutaPrincipal(){
     }
     // Funcion qur ordena por puntos o abecedario
 
-
-    const handleOrderType = (e, orderType, order) => {
-
+    const handleOrderType = (e, order) => {
         if(e.target.value === 'puntuacion'){
             dispatch(getOrderScore(e.target.value, order))
             setCurrentPage(1)
@@ -83,16 +73,13 @@ export default function RutaPrincipal(){
             setCurrentPage(1)
             setOrderType(e.target.value)
         }
-       
     }
+    //Funcion que filtra el estado por tipo de dieta
 
     const handleFilterByDiet =  (e) => {
-        
-         dispatch( filterByDiet(e.target.value) )
+        dispatch( filterByDiet(e.target.value) )
         setCurrentPage(1)
-    //   console.log(e.target.value)
     }
-
     // Modifica el estado name en la medida en que se vaya escribiendo en el input
 
     const handleNameSearch = (e) => setName(e.target.value); 
@@ -110,12 +97,6 @@ export default function RutaPrincipal(){
     const paginate = pageNumber => setCurrentPage(pageNumber);
     const paginateMas = () => setCurrentPage(currentPage + 1)
     const paginateMenos = () => setCurrentPage(currentPage - 1);
-
-    const prueba = {
-        background: 'red',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    }
     
     return(
         <Fragment>
@@ -150,7 +131,7 @@ export default function RutaPrincipal(){
                         <button> Buscar </button>
                     </Menu>
                 </nav>
-                <nav className={prueba}>
+                <nav >
                     <Menu >
                         <button  onClick={(e)=> handleRecharge()}>Recargar</button>
                         <Link to='/form'><button>Crear Receta</button></Link>
@@ -163,7 +144,7 @@ export default function RutaPrincipal(){
                 {  
                      currentRecepies.map(e => {
                         return(
-                        <div>
+                        <div key={e.numero}>
                             <Card 
                             numero={e.numero} 
                             id={e.id} 
@@ -177,18 +158,18 @@ export default function RutaPrincipal(){
                         </div>
                     )})
                 }
-                </Container> 
-                <Foot>
-                    <Pagination 
-                    paginado={arrayPages} 
-                    evento={paginate} 
-                    eventoMas={paginateMas} 
-                    eventoMenos={paginateMenos} 
-                    pagina={currentPage}
-                    setear={setCurrentPage}
-                    />
-                </Foot>  
-            </Fragment>
+            </Container> 
+            <Foot>
+                <Pagination 
+                paginado={arrayPages} 
+                evento={paginate} 
+                eventoMas={paginateMas} 
+                eventoMenos={paginateMenos} 
+                pagina={currentPage}
+                setear={setCurrentPage}
+                />
+            </Foot>  
+        </Fragment>
     )
 }
 

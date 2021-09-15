@@ -1,7 +1,4 @@
 const {Recipe, Diet} = require('../db')
-const {Op} = require('sequelize');
-
-
 
  const getDiets = async (req, res, next) => {
     try {

@@ -1,0 +1,121 @@
+
+
+h2{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 60px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1000px;
+    height: auto
+}
+div.box {
+    display: flex;
+    margin: auto;
+}
+div.foto {
+    height: auto;
+    flex-basis: 100px;
+}
+
+div.foto img {
+    width: 600px;
+    border-radius: 4px;
+    margin-left: 50px
+}
+
+div.resumen {
+    padding: 20px;
+    border-radius: 4px;
+    margin: auto;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 16px;
+    flex-basis: 1000px;
+}
+
+.caja-boton {
+    /* background: red; */
+    /* max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto; */
+    /* margin-left: 10em; */
+}
+
+.boton {
+    width: 50%;
+    background: #1f53c5;
+    color: white;
+    border-radius: 4px;
+    border: 1px solid #1f53c5;
+    /* margin-top: 10em; */
+    font-size: 16px;
+    font-family: 'calibri';
+    color: white;
+    padding: 20px;
+    margin-left: 58em;
+}
+.boton:hover {
+    color: white;
+    text-decoration: underline;
+}
+ 
+ div.resumen2 {
+     display: flex;
+    height: 400px;
+    max-height: 500px; 
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    transition: all 0.25s;
+    font-size: 1.5em;
+    margin: 50px auto;
+    margin-top: 50px
+} 
+
+div.resumen2 ul, .otraCaja{
+    color: white;
+    border-radius: 5px;
+    list-style-type: none;
+    width: 200px;
+    height: 400px;
+    background: #24303c;
+    text-align: center;
+}
+
+.otraCaja{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: none;
+}
+
+.salud, .puntos {
+    width: 160px;
+    height: 150px;
+    margin: 30px;
+    background: #24303c;
+    border-radius: 10px;
+}
+
+.pasoAPaso li {
+    font-size: 0.8em;
+    margin-bottom: 20px;
+}
+
+.pasoAPaso {
+    border: black solid 1px;
+    border-radius: 10px;
+    margin-bottom: 3em;
+}
+
+.pasoAPaso ul {
+    list-style-type: decimal;
+
+}

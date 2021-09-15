@@ -1,21 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Fragment } from 'react';
 import {Frag} from './styledComponents'
-
-
 
 export default function Card(props){
 
     return(
         <Frag >
             <Link to={`/details/${props.id}`}> 
-                <h3>{props.nombre}</h3> 
-                <img src={props.imagen} alt={props.nombre}/>
+                <div><h3>{props.nombre}</h3></div>
+                <div><img src={props.imagen} alt={props.nombre}/></div>
                 <div style={{display: 'flex'}}>
                     <div>
                         <h4> Tipos de Dietas</h4>
                         <ul style={{listStyleType: 'none'}}>
-                            {props.dieta && props.dieta.map(e => <li> {e} </li>)}
+                            {props.dieta && props.dieta.map(e => <li key={e}> {e} </li>)}
                         </ul>
                     </div>
                     <div>
@@ -27,7 +24,8 @@ export default function Card(props){
                         </ul>
                     </div>
                 </div>
-                <p>PTS: {props.puntuacion}</p>
+                <div> <button >{props.puntuacion}</button></div>
+                
             </Link>
         </Frag>
     )

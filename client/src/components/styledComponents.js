@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+
+//Landing PAge
+
+const Landing = styled.div`
+    backgroundImage: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbanner2.kisspng.com%2F20180505%2Fzae%2Fkisspng-kitchen-utensil-logo-rolling-pins-cook-5aed90335d04b5.390316611525518387381.jpg&f=1&nofb=1');
+        backgroundSize: 50%;
+`
 // Pagina Principal
 
 const Container = styled.div`
@@ -43,7 +50,7 @@ const Formulario = styled.div`
   `
 const Foot = styled.div`
     width: 100%;
-    margin-top: 76em
+    margin-top: 96em
 `;
 
 const Menu = styled.form`
@@ -103,14 +110,16 @@ const Menu = styled.form`
 //Card
 
 const Frag = styled.div`
-    max-width: 330px;
-    height: 500px;
+    max-width: 500px;
+    height: 600px;
+    max-height: 800px;
     border-radius: 8px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     margin: 20px;
     text-align: center;
     transition: all 0.25s;
+    text-decoration: none;
     & a {
         text-decoration: none
     }
@@ -131,7 +140,8 @@ const Frag = styled.div`
     & a {
         font-weight: 500;
         text-decoration: none;
-        color: #3498db;
+        color: #1d1d1f
+        // #3498db;
     }
     & p, li {
         padding: 0 1rem;
@@ -139,6 +149,45 @@ const Frag = styled.div`
         font-weight: 300;
         font-family: apple-system
     }
+    & button {
+        width: 30%;
+        padding: 10px;
+        background: #1f53c5;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        margin: 0 0 0 16px;
+        font-size: 16px;
+
+    }
+    & div {
+        margin-bottom: 20px
+    }
+    & div:nth-of-type(3){
+        display: flex;
+        justify-content: space-evenly;
+        & div {
+            border: 1px solid #1f53c5;
+            width: 50%;
+            background: #1d1d1f;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            margin: 0 0 0 16px;
+            font-size: 16px;
+            padding: 0;
+            & ul {
+                font-size: 12px;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+        }
+    & div:nth-of-type(4) {
+        background: red
+    }
+    
 `
 
 // Formulario 
@@ -323,5 +372,6 @@ export  {
     Menu,
     Frag,
     FragDetails,
-    ListasReceta
+    ListasReceta,
+    Landing
 }

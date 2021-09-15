@@ -1,6 +1,5 @@
 import { Paginado} from './styledComponents'
 
-
 export default function Pagination({paginado, evento, eventoMas, eventoMenos, pagina}){
 
     return(
@@ -13,7 +12,12 @@ export default function Pagination({paginado, evento, eventoMas, eventoMenos, pa
             {
                 paginado.map(e => {
                     return(
-                        <button  value={e} onClick={ () => evento(e)} key={e} id={'pag'}>{e}</button>
+                        <button 
+                        key={e} 
+                        value={e} 
+                        onClick={ () => evento(e)}
+                        id={'pag'}>
+                        {e}</button>
                         )})
                
             }
