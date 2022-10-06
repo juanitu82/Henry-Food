@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const ErrorHandler = require('./utils/ErrorHandler')
 const Cors = require('./utils/Cors')
+const cors = require('cors')
 require('./db.js');
 
 const server = express();
@@ -16,6 +17,7 @@ server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(Cors);
+server.use(cors());
 
 server.use('/api', routes);
 

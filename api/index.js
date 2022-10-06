@@ -19,14 +19,14 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn, Diet } = require('./src/db.js');
+require('dotenv').config();
+const { PORT } = process.env;
 
 const tiposDietas = require('./src/controllers/tiposDeDietas');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then( () => {
-  console.log('DB sync')
-  server.listen( 3001, async () => {
-    console.log(`Server listening at port 3001`); // eslint-disable-line no-console
+  server.listen( PORT, async () => {
     const dietQuery = await Diet.findAll();
     if(dietQuery.length) console.log('No Actualiza Diets')
     else if(!dietQuery.length) await Diet.bulkCreate(tiposDietas)

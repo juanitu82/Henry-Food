@@ -15,6 +15,6 @@ const arrayDietas = [
   "fodmap friendly"
 ]
 
-const tiposDietas = arrayDietas.map(e => ({nombre: e}))
+const tiposDietas = arrayDietas.map( diet => ({nombre: diet}))
 
 module.exports = tiposDietas

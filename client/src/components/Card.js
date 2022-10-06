@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import {Frag} from './styledComponents'
 
 export default function Card(props){
-
+console.log(props)
     return(
         <Frag >
             <Link to={`/details/${props.id}`}> 
@@ -12,7 +12,13 @@ export default function Card(props){
                     <div>
                         <h4> Tipos de Dietas</h4>
                         <ul style={{listStyleType: 'none'}}>
-                            {props.dieta && props.dieta.map(e => <li key={e}> {e} </li>)}
+                            {
+                                typeof props.id === 'number' ?
+                                props.dieta && props.dieta.map(e => <li key={e}> {e} </li>)
+                                :
+                                props.dieta && props.dieta.map(e => <li key={e.nombre}> {e.nombre} </li>)
+                            
+                            }
                         </ul>
                     </div>
                     <div>

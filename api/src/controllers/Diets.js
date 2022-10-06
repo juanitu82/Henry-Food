@@ -12,17 +12,23 @@ const {Recipe, Diet} = require('../db')
             },
             order: [['id', 'ASC']]
         })
-        dietQuery.length ? res.json(dietQuery) : res.status(404).json('No hay tipos de dietas en la Base de Datos')
+        dietQuery.length ?
+        res.json(dietQuery) 
+        : 
+        res.status(404).json('No hay tipos de dietas en la Base de Datos')
     } catch (error) {
         next(error)
     }
 }
 
 const getDietById = async (req, res, next) => {
+    const id = parseInt(req.params.id)
     try {
-        const { id } = req.params;
         const dietQuery = await Diet.findByPk(id)
-        dietQuery.length ? res.json(dietQuery) : res.status(404).json('No se encontro la dieta en la Base de Datos')
+        dietQuery ?
+        res.json(dietQuery) 
+        : 
+        res.status(404).json('No se encontro la dieta en la Base de Datos')
     } catch (error) {
         next(error)
     }
@@ -30,7 +36,8 @@ const getDietById = async (req, res, next) => {
 
 const createDiet = async(req, res, next) => {
     try {
-        const {nombre, createdInDB} = req.body;
+        let {nombre, createdInDB } = req.body;
+        if (createdInDB === undefined) createdInDB = true
         const [diet, created] = await Diet.findOrCreate({
             where: {
                 nombre, createdInDB
@@ -45,10 +52,10 @@ const createDiet = async(req, res, next) => {
 const updateDiet = async(req, res, next) => {
     try {
         const diet = req.body;
-        const {id} = req.params;
+
         const dietUpdate = await Diet.update(diet, {
             where: {
-                id: id
+                id: parseInt(req.params.id)
             }
         })
         dietUpdate > 0 ? res.json('La dieta ha sido actualizada correctamente') : res.status(404).json('Ha ocurrido un error, no hubo actualizacion')
@@ -59,13 +66,18 @@ const updateDiet = async(req, res, next) => {
 }
 
 const deleteDiet = async(req, res, next) => {
-    const {id} = req.params;
-    const dietQuery = await Diet.destroy({
-        where: {
-            id: id
-        }
-    })
-    dietQuery > 0 ? res.json('La dieta ha sido eliminada correctamente') : res.status(404).json('Ha ocurrido un error, la dieta no se borro')
+    try {
+       await Diet.destroy({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        })
+        
+    } catch (error) {
+        next(error)
+    }
+    
+    res.json('La dieta ha sido eliminada correctamente') 
 }
 
 module.exports = {

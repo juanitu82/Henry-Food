@@ -4,7 +4,8 @@ const axios = require('axios');
      
     return async (dispatch) => {
         
-        const {data} = await axios(`http://localhost:3001/api/recipes`)
+        const {data} = await axios(`/api/recipes`)
+        console.log(data)
         return await dispatch({
             type: 'GET_RECEPIES',
             payload: data
@@ -14,7 +15,7 @@ const axios = require('axios');
 
 const getDiets = () => {
     return async (dispatch) =>{
-        const {data} = await axios.get('http://localhost:3001/api/diets')
+        const {data} = await axios.get('/api/diets')
         return dispatch({
             type: 'GET_DIETS',
             payload: data
@@ -24,7 +25,7 @@ const getDiets = () => {
 
 const getRecepieById = (id) => {
     return async (dispatch) => {
-        const {data} = await axios.get(`http://localhost:3001/api/recipes/${id}`)
+        const {data} = await axios.get(`/api/recipes/${id}`)
         return await dispatch({
             type: 'GET_RECEPIE_BY_ID',
             payload: data[0]
@@ -70,7 +71,7 @@ const filterByDiet = (diet ) => {
 const filterByName = (name) => {
     
     return async (dispatch) => {
-        const {data} = await axios.get(`http://localhost:3001/api/recipes?name=${name}`)
+        const {data} = await axios.get(`/api/recipes?name=${name}`)
         
         return await dispatch({
             type: 'FILTER_RECEPIES_BY_NAME',
@@ -83,7 +84,7 @@ const filterByName = (name) => {
 const createRecepie = (recepie) => {
     
     return async (dispatch) => {
-        const creacion = await axios.post('http://localhost:3001/api/recipes/create', recepie)
+        const creacion = await axios.post('/api/recipes/create', recepie)
         return await dispatch({
             type: 'CREATE_RECEPIE',
             creacion

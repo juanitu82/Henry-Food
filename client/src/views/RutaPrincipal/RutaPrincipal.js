@@ -142,18 +142,18 @@ export default function RutaPrincipal(){
            
             <Container>
                 {  
-                     currentRecepies.map(e => {
+                     currentRecepies.map( recepie => {
                         return(
-                        <div key={e.numero}>
+                        <div key={recepie.numero}>
                             <Card 
-                            numero={e.numero} 
-                            id={e.id} 
-                            nombre={e.nombre} 
-                            imagen={e.imagen} 
-                            dieta={e.dietas} 
-                            tipo={e.tipo} 
-                            puntuacion={e.puntuacion} 
-                            key={e.id}
+                            numero={recepie.numero} 
+                            id={recepie.id} 
+                            nombre={recepie.nombre} 
+                            imagen={recepie.imagen} 
+                            dieta={recepie.diets} 
+                            tipo={recepie.tipo} 
+                            puntuacion={recepie.puntuacion} 
+                            key={recepie.id}
                             className={'card'}/> 
                         </div>
                     )})

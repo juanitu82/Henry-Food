@@ -98,17 +98,23 @@ export default function Form(){
     // funcion que maneja el submit del formulario y que nos manda a la pagina principal
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createRecepie({...form, createdInDB: true }))
-        setForm({
-            nombre: '',
-            resumen: '',
-            puntos: 0,
-            salud: 0,
-            pasos: [],
-            dietas: []
-        })
-        alert('done!')
-        history.push('/principal')
+
+        if(form.nombre === undefined || form.resumen === undefined || form.puntos <= 0 || form.salud <= 0 ){
+            alert('El formulario esta incompleto')
+        } else {
+
+            dispatch(createRecepie({...form, createdInDB: true }))
+            setForm({
+                nombre: '',
+                resumen: '',
+                puntos: 0,
+                salud: 0,
+                pasos: [],
+                dietas: []
+            })
+            alert('done!')
+            history.push('/principal')
+        }
     }
 
     // Al montarse el componente nos traemos las dietas

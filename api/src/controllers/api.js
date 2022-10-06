@@ -1,42 +1,51 @@
 
 const axios = require('axios')
-const { Recipe } = require('../db')
-const {APIKEY} = (process.env || 3001);
+const { Recipe, Diet } = require('../db')
+const {APIKEY} = process.env;
 
 const apiRecipes = async () => {
+  let number = 0
+  let veganRecepies = [], apiCall;
     try {
-        let {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&number=100&addRecipeInformation=true`)
-        let number = 0
-
-        let veganRecepies = [];
-
-        data = data.results.map( (e) => {
-          e.vegetarian ? 
-          veganRecepies = e.diets.concat(["vegetarian"]) :
-          veganRecepies = e.diets;
-          number++
-          return {
-            numero: number,
-            id: e.id,
-            nombre: e.title,
-            resumen: e.summary.replace(/<[^>]*>?/g, ''),
-            puntuacion: e.spoonacularScore,
-            salud: e.healthScore,
-            pasos: e.analyzedInstructions[0] && e.analyzedInstructions[0].steps && e.analyzedInstructions[0].steps.map((step) => step.step),
-            dietas: veganRecepies,
-            tipo: e.dishTypes,
-            imagen: e.image,
-          }
-        })
-
-        let query = await Recipe.findAll()
-        const allRecepies = data.concat(query)
-        return allRecepies
+        apiCall = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&number=100&addRecipeInformation=true`)
     } catch (error) {
       console.error(error)  
     }
+    apiCall = apiCall.data.results.map( recipe => {
+
+          recipe.vegetarian ? 
+          veganRecepies = recipe.diets.concat(["vegetarian"]) 
+          :
+          veganRecepies = recipe.diets;
+          number++
+
+          return {
+            numero: number,
+            id: recipe.id,
+            nombre: recipe.title,
+            resumen: recipe.summary.replace(/<[^>]*>?/g, ''),
+            puntuacion: recipe.spoonacularScore || 'Sin puntuacion',
+            salud: recipe.healthScore,
+            pasos: recipe.analyzedInstructions[0] && recipe.analyzedInstructions[0].steps && recipe.analyzedInstructions[0].steps.map((step) => step.step),
+            diets: veganRecepies,
+            tipo: recipe.dishTypes,
+            imagen: recipe.image,
+          }
+        })
+
+        let recipeQueryToDB = await Recipe.findAll({
+          include: {
+            model: Diet,
+            attributes: ["nombre"],  
+            through: {
+              attributes: [],
+            },
+          },
+        })
+        const allRecepies = apiCall.concat(recipeQueryToDB)
+        return allRecepies
   }
 
   module.exports = apiRecipes
 
-  
+ 

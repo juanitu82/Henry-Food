@@ -37,9 +37,6 @@ module.exports = (sequelize) => {
     pasos: {
       type: DataTypes.ARRAY(DataTypes.STRING)
     },
-    dietas: {
-      type: DataTypes.ARRAY(DataTypes.STRING)
-    },
     tipo: {
       type: DataTypes.ARRAY(DataTypes.STRING)
     },
